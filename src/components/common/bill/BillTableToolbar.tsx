@@ -14,6 +14,8 @@ type BillTableToolbarProps = {
   setSelectedMedicalStore: (value: string) => void;
   selectedCompany: string;
   setSelectedCompany: (value: string) => void;
+  billStatusFilter: string;
+  setBillStatusFilter: (value: string) => void;
   medicalStoreOptions: Array<{ value: string; label: string }>;
   companyOptions: Array<{ value: string; label: string }>;
   isCompaniesLoading: boolean;
@@ -30,6 +32,8 @@ const BillTableToolbar = ({
   setSelectedMedicalStore,
   selectedCompany,
   setSelectedCompany,
+  billStatusFilter,
+  setBillStatusFilter,
   medicalStoreOptions,
   companyOptions,
   isCompaniesLoading,
@@ -73,6 +77,18 @@ const BillTableToolbar = ({
           loading={isCompaniesLoading}
           disabled={!companyOptions.length && isCompaniesLoading}
           className={`${tableSelectClass} !w-full sm:!w-[260px]`}
+        />
+
+        <Select
+          value={billStatusFilter || undefined}
+          onChange={(value) => setBillStatusFilter(value || "")}
+          options={[
+            { value: "Paid", label: "Paid" },
+            { value: "Due", label: "Due" },
+          ]}
+          allowClear
+          placeholder="Bill status"
+          className={`${tableSelectClass} !w-full sm:!w-[200px]`}
         />
 
         <RangePicker

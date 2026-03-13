@@ -29,7 +29,7 @@ export const tableTabClass =
   "app-clean-tabs mb-0 px-4 pt-1 pb-0 sm:px-6 [&_.ant-tabs-nav]:!mb-0 [&_.ant-tabs-nav]:!px-[22px] [&_.ant-tabs-nav-wrap]:!overflow-x-auto [&_.ant-tabs-nav-wrap]:!overflow-y-hidden [&_.ant-tabs-nav-wrap]:!scroll-smooth [&_.ant-tabs-nav-list]:!flex-nowrap [&_.ant-tabs-nav-operations]:!hidden";
 
 export const tableSurfaceClass =
-  "app-clean-table w-full overflow-x-auto px-4 pb-4 pt-3 sm:px-6 sm:pb-5";
+  "app-clean-table w-full overflow-x-auto px-4 pb-4 pt-0 sm:px-6 sm:pb-5";
 
 export const tableActionButtonClass =
   "!inline-flex !h-10 !w-10 !min-w-0 !items-center !justify-center !rounded-2xl !border-0 !bg-[#eff4e9] !p-0 !leading-none !shadow-none [&_.anticon]:!inline-flex [&_.anticon]:!items-center [&_.anticon]:!justify-center [&_.anticon]:!leading-none hover:!bg-[#e3ecd9]";

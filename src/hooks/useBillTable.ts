@@ -45,6 +45,7 @@ export const useBillTable = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedMedicalStore, setSelectedMedicalStore] = useState("");
   const [selectedCompany, setSelectedCompany] = useState("");
+  const [billStatusFilter, setBillStatusFilter] = useState("");
   const [dateRange, setDateRange] = useState<[Dayjs, Dayjs] | null>(null);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -94,7 +95,7 @@ export const useBillTable = () => {
   const toDate = dateRange?.[1]?.format("YYYY-MM-DD");
 
   const { data, isLoading, isError, error, isFetching } = useQuery({
-    queryKey: ["bills", searchValue, fromDate, toDate, selectedMedicalStore, selectedCompany, statusTab, page, limit],
+    queryKey: ["bills", searchValue, fromDate, toDate, selectedMedicalStore, selectedCompany, billStatusFilter, statusTab, page, limit],
     queryFn: () =>
       getAllBillsByQuery({
         search: searchValue || undefined,
@@ -102,6 +103,7 @@ export const useBillTable = () => {
         toDate,
         medicalStoreId: isAdmin ? selectedMedicalStore || undefined : undefined,
         companyId: selectedCompany || undefined,
+        billStatus: billStatusFilter || undefined,
         isActive: statusTab === "active",
         page,
         limit,
@@ -117,7 +119,7 @@ export const useBillTable = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [statusTab, searchValue, fromDate, toDate, selectedMedicalStore, selectedCompany]);
+  }, [statusTab, searchValue, fromDate, toDate, selectedMedicalStore, selectedCompany, billStatusFilter]);
 
   const refreshBills = () => queryClient.invalidateQueries({ queryKey: ["bills"] });
 
@@ -206,6 +208,8 @@ export const useBillTable = () => {
     setSelectedMedicalStore,
     selectedCompany,
     setSelectedCompany,
+    billStatusFilter,
+    setBillStatusFilter,
     dateRange,
     onRangeChange,
     page,

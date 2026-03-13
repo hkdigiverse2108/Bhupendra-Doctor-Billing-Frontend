@@ -45,6 +45,8 @@ const BillTable = () => {
     setSelectedMedicalStore,
     selectedCompany,
     setSelectedCompany,
+    billStatusFilter,
+    setBillStatusFilter,
     dateRange,
     onRangeChange,
     page,
@@ -234,6 +236,8 @@ const BillTable = () => {
         setSelectedMedicalStore={setSelectedMedicalStore}
         selectedCompany={selectedCompany}
         setSelectedCompany={setSelectedCompany}
+        billStatusFilter={billStatusFilter}
+        setBillStatusFilter={setBillStatusFilter}
         medicalStoreOptions={medicalStoreOptions}
         companyOptions={companyOptions}
         isCompaniesLoading={isCompaniesLoading}

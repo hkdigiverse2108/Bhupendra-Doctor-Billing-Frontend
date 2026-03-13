@@ -13,6 +13,7 @@ export const getAllBillsByQuery = async (params: {
   quickDate?: "today" | "yesterday" | "tomorrow";
   medicalStoreId?: string;
   companyId?: string;
+  billStatus?: string;
   isActive?: boolean;
 }) => {
   const response = await API.get(URL_KEYS.BILL.GET_BILLS, { params });
