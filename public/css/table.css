@@ -91,6 +91,17 @@
   background: #fbfdf8 !important;
 }
 
+/* Remove Ant table measure row space that appears above first data row */
+.app-clean-table .ant-table-tbody > tr.ant-table-measure-row {
+  height: 0 !important;
+}
+
+.app-clean-table .ant-table-tbody > tr.ant-table-measure-row > td {
+  padding: 0 !important;
+  border: 0 !important;
+  height: 0 !important;
+}
+
 .app-data-table thead {
   background: #f4faec;
 }

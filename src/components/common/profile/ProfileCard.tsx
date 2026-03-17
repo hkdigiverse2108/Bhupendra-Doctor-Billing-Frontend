@@ -72,6 +72,7 @@ const ProfileCard = () => {
       confirmText: "Logout",
       cancelText: "Cancel",
       intent: "danger",
+      icon: <LogoutOutlined />,
     });
     if (!shouldLogout) return;
     signoutMutation.mutate(undefined, {

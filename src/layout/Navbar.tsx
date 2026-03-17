@@ -107,6 +107,7 @@ const Navbar: React.FC<NavbarProps> = ({ setOpen, collapsed }) => {
       confirmText: "Logout",
       cancelText: "Cancel",
       intent: "danger",
+      icon: <LogoutOutlined />,
     });
     if (!shouldLogout) return;
     setProfileOpen(false);

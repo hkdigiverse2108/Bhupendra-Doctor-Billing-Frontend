@@ -8,12 +8,6 @@ const Footer = () => {
           <CopyrightOutlined className="text-[#4f6841]" />
           <span>{new Date().getFullYear()} Medico. All rights reserved.</span>
         </p>
-
-        <div className="flex gap-5">
-          <span className="cursor-pointer transition hover:text-[#3a592b]">Privacy</span>
-          <span className="cursor-pointer transition hover:text-[#3a592b]">Terms</span>
-          <span className="cursor-pointer transition hover:text-[#3a592b]">Support</span>
-        </div>
       </div>
     </footer>
   );

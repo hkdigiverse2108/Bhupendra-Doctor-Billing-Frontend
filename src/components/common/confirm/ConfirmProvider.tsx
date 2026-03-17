@@ -10,6 +10,7 @@ type ConfirmOptions = {
   confirmText?: string;
   cancelText?: string;
   intent?: ConfirmIntent;
+  icon?: ReactNode;
 };
 
 type ConfirmFn = (options: ConfirmOptions) => Promise<boolean>;
@@ -22,6 +23,7 @@ const defaultOptions: Required<ConfirmOptions> = {
   confirmText: "Confirm",
   cancelText: "Cancel",
   intent: "danger",
+  icon: null,
 };
 
 export const ConfirmProvider = ({ children }: { children: ReactNode }) => {
@@ -29,7 +31,15 @@ export const ConfirmProvider = ({ children }: { children: ReactNode }) => {
     return new Promise<boolean>((resolve) => {
       const merged = { ...defaultOptions, ...incomingOptions };
       const isDanger = merged.intent === "danger";
-      const iconNode = isDanger ? (
+      const iconNode = merged.icon ? (
+        <span
+          className={`confirm-cartoon-icon ${
+            isDanger ? "confirm-cartoon-danger" : "confirm-cartoon-neutral"
+          }`}
+        >
+          {merged.icon}
+        </span>
+      ) : isDanger ? (
         <span className="confirm-cartoon-icon confirm-cartoon-danger">
           <DeleteFilled />
           <ExclamationCircleFilled className="confirm-cartoon-badge" />

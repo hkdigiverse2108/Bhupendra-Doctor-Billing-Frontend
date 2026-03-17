@@ -1,5 +1,5 @@
 import { Pagination, Select, Space, Typography } from "antd";
-const PAGE_SIZE_OPTIONS = [10, 30, 50, 100];
+const PAGE_SIZE_OPTIONS = [10, 30, 50, 100] as const;
 
 type ServerPaginationControlsProps = {
   page: number;
@@ -20,6 +20,10 @@ const ServerPaginationControls = ({
   onPageChange,
   onLimitChange,
 }: ServerPaginationControlsProps) => {
+  const pageSizeValue =
+    total > 0 && limit === total && !PAGE_SIZE_OPTIONS.includes(total as (typeof PAGE_SIZE_OPTIONS)[number])
+      ? "all"
+      : limit;
   return (
     <div className="app-pagination-wrap flex flex-col gap-3 border-t border-[#e3edd9] px-4 py-4 md:flex-row md:items-center md:justify-between">
       <Typography.Text className="!text-[13px] !text-[#6d8060]">
@@ -30,11 +34,23 @@ const ServerPaginationControls = ({
         <Space size={8}>
           <Typography.Text className="!text-[13px] !text-[#6d8060]">Rows</Typography.Text>
           <Select
-            value={limit}
-            onChange={(value) => onLimitChange(Number(value))}
+            value={pageSizeValue}
+            onChange={(value) => {
+              if (value === "all") {
+                const nextLimit = total > 0 ? total : 1;
+                onLimitChange(nextLimit);
+                onPageChange(1);
+                return;
+              }
+
+              onLimitChange(Number(value));
+            }}
             showSearch
             optionFilterProp="label"
-            options={PAGE_SIZE_OPTIONS.map((size) => ({ value: size, label: size }))}
+            options={[
+              ...PAGE_SIZE_OPTIONS.map((size) => ({ value: size, label: size })),
+              { value: "all", label: "All" },
+            ]}
             className="!h-10 !w-[100px] [&_.ant-select-selector]:!h-10 [&_.ant-select-selector]:!rounded-lg [&_.ant-select-selector]:!border-[#cfe4b7] [&_.ant-select-selector]:!bg-[#fefffc] [&_.ant-select-selection-item]:!leading-[38px]"
           />
         </Space>

@@ -1,6 +1,6 @@
 import type { Table } from "@tanstack/react-table";
 import { Pagination, Select, Space, Typography } from "antd";
-const PAGE_SIZE_OPTIONS = [10, 30, 50, 100];
+const PAGE_SIZE_OPTIONS = [10, 30, 50, 100] as const;
 
 type TablePaginationControlsProps<TData> = {
   table: Table<TData>;
@@ -11,6 +11,10 @@ const TablePaginationControls = <TData,>({ table }: TablePaginationControlsProps
   const currentPage = table.getState().pagination.pageIndex + 1;
   const totalPages = table.getPageCount();
   const pageSize = table.getState().pagination.pageSize;
+  const pageSizeValue =
+    totalRows > 0 &&
+    pageSize === totalRows &&
+    !PAGE_SIZE_OPTIONS.includes(totalRows as (typeof PAGE_SIZE_OPTIONS)[number]) ? "all" : pageSize;
   return (
     <div className="app-pagination-wrap flex flex-col gap-3 border-t border-[#e3edd9] px-4 py-4 md:flex-row md:items-center md:justify-between sm:px-6">
       <Typography.Text className="!text-[13px] !text-[#6d8060]">
@@ -21,11 +25,23 @@ const TablePaginationControls = <TData,>({ table }: TablePaginationControlsProps
         <Space size={8}>
           <Typography.Text className="!text-[13px] !text-[#6d8060]">Rows</Typography.Text>
           <Select
-            value={pageSize}
-            onChange={(value) => table.setPageSize(Number(value))}
+            value={pageSizeValue}
+            onChange={(value) => {
+              if (value === "all") {
+                const nextSize = totalRows > 0 ? totalRows : 1;
+                table.setPageSize(nextSize);
+                table.setPageIndex(0);
+                return;
+              }
+
+              table.setPageSize(Number(value));
+            }}
             showSearch
             optionFilterProp="label"
-            options={PAGE_SIZE_OPTIONS.map((size) => ({ value: size, label: size }))}
+            options={[
+              ...PAGE_SIZE_OPTIONS.map((size) => ({ value: size, label: size })),
+              { value: "all", label: "All" },
+            ]}
             className="!h-10 !w-[96px] [&_.ant-select-selector]:!h-10 [&_.ant-select-selector]:!rounded-lg [&_.ant-select-selector]:!border-[#cfe4b7] [&_.ant-select-selector]:!bg-[#fefffc] [&_.ant-select-selection-item]:!leading-[38px]"
           />
         </Space>
